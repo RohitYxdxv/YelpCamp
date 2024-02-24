@@ -3,7 +3,6 @@ const axios=require('axios');
 const cities=require('./cities');
 const {places,descriptors}=require('./seedHelpers')
 const Campground=require('../models/campground');
-require('dotenv').config();
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp');
 
@@ -48,7 +47,7 @@ const seedDB=async()=>{
                     cities[random1000].latitude,
                 ]
             },
-            images: [],
+           
             images: [
               {
                 url: 'https://res.cloudinary.com/ddbvfvgbk/image/upload/v1708588153/YelpCamp/ceayqmxntdtck7xzb7uf.webp',
