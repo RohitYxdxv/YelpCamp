@@ -46,13 +46,15 @@ app.set('views',path.join(__dirname,'views'))
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname,'public')));
-app.use(mongoSanitize());
+app.use(mongoSanitize({
+replaceWith:'_'
+}));
 
 const store=new MongoStore({
     mongoUrl:dbUrl,
     touchAfter:24*60*60,
     crypto:{
-        secret:'thisshouldbeasecret!'}
+        secret: process.env.SECRET ||'thisshouldbeasecret!'}
 });
 
 store.on("error",function(e){
@@ -152,8 +154,6 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render('error',{err});
 })
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-    console.log(`Serving on port ${port}`)
+app.listen(3000, () => {
+    console.log('Serving on port 3000')
 })
